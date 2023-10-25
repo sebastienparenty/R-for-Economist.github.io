@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R for Economist - 1&nbsp; Introduction</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./summary.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="site_libs/jquery-1.11.1/jquery.min.js"></script>
+<link href="site_libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet">
+<script src="site_libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="site_libs/dygraphs-1.1.1/shapes.js"></script>
+<script src="site_libs/moment-2.8.4/moment.js"></script>
+<script src="site_libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="site_libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="site_libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+<script src="site_libs/font-awesome-5.13.0/js/script.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="include/webex.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R for Economist</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Example</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./DataI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dataii.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Loops &amp; Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./econometrics1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Econometrics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ML.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Machine Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#r-who-are-you" id="toc-r-who-are-you" class="nav-link active" data-scroll-target="#r-who-are-you"><span class="header-section-number">1.1</span> R, who are you?</a>
+  <ul class="collapse">
+  <li><a href="#r-studio" id="toc-r-studio" class="nav-link" data-scroll-target="#r-studio"><span class="header-section-number">1.1.1</span> R studio</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">1.1.2</span> Packages</a></li>
+  <li><a href="#an-object-oriented-programming-language" id="toc-an-object-oriented-programming-language" class="nav-link" data-scroll-target="#an-object-oriented-programming-language"><span class="header-section-number">1.1.3</span> An object-oriented programming language</a></li>
+  <li><a href="#some-references" id="toc-some-references" class="nav-link" data-scroll-target="#some-references"><span class="header-section-number">1.1.4</span> <strong>Some references</strong></a></li>
+  </ul></li>
+  <li><a href="#how-this-tutorial-works" id="toc-how-this-tutorial-works" class="nav-link" data-scroll-target="#how-this-tutorial-works"><span class="header-section-number">1.2</span> How this tutorial works?</a></li>
+  <li><a href="#learning-by-doing" id="toc-learning-by-doing" class="nav-link" data-scroll-target="#learning-by-doing"><span class="header-section-number">1.3</span> Learning by doing</a></li>
+  <li><a href="#exercices" id="toc-exercices" class="nav-link" data-scroll-target="#exercices"><span class="header-section-number">1.4</span> Exercices</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<center>
+<p><img src="images/Brain.png" class="img-fluid" width="400"></p>
+</center>
+<p><br></p>
+<p>R was designed specifically for statistical analysis and is extremely well suited to the tasks facing economists. Whether it’s econometrics, time series, advanced statistical analysis or predictive models, R can really do the job.</p>
+<p>What’s more, it’s free, which makes it a cool language!</p>
+<p>In this tutorial, you will learn how to:</p>
+<ul>
+<li>Manipulate, transform, merge and synthesize data using the <code>tidyverse</code> package</li>
+<li>Create simple loops and functions</li>
+<li>Perform all kinds of econometric models and statistical analyses</li>
+<li>Make beautiful visuals and a clean document to share</li>
+</ul>
+<p>You can download the latest versions of <a href="https://cran.rstudio.com/">R</a> and <a href="https://posit.co/download/rstudio-desktop/">R Studio</a>. Then simply copy/paste the lines of code and run them on your computer.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Important">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>The techniques you’ll learn here are very similar to those used with Python, SQL, SAS, STATA, Julia etc… No matter how motivated you are to follow this tutorial, it’s not a waste of time! See the different codes here:</em></p>
+</div>
+</div>
+<p><br></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">SQL</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">SAS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">STATA</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Julia</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> data[data<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(salary <span class="sc">~</span> age, data, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>import pandas as pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">pd.read_csv</span>(<span class="st">"data.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">=</span> data[data[<span class="st">"age"</span>] <span class="sc">&gt;=</span> <span class="dv">18</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">=</span> <span class="fu">data.groupby</span>(<span class="st">"age"</span>)<span class="fu">.mean</span>()[<span class="st">"salary"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>SELECT age, <span class="fu">avg</span>(salary)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>FROM data</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>WHERE age <span class="sc">&gt;=</span> <span class="dv">18</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>GROUP BY age;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>proc import datafile <span class="ot">=</span> <span class="st">"data.csv"</span> out <span class="ot">=</span> data;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>run;</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>proc sql;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>select age, <span class="fu">avg</span>(salary)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>from data</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>where age <span class="sc">&gt;=</span> <span class="dv">18</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>group by age;</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>quit;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>use data.csv, clear;</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>keep <span class="cf">if</span> age <span class="sc">&gt;=</span> <span class="dv">18</span>;</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>summarize salary;</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>by age;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>using CSV</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>using DataFrames</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">CSV.read</span>(<span class="st">"data.csv"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">=</span> data[data.age .<span class="sc">&gt;=</span> <span class="dv">18</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">=</span> data <span class="sc">|&gt;</span> <span class="fu">groupby</span>(age) <span class="sc">|&gt;</span> <span class="fu">mean</span>(salary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>This example reads a CSV file, filters the data to retain only those aged 18 or over, then groups the data by age and calculates the average salary for each age group. The syntax is very similar in all six languages, making it easy to transfer code between them. <strong>Rstudio can also incorporate Python, SQL, SAS, STATA or Julia code!</strong></p>
+<p>You may also notice that R and Python work with libraries (or packages). Here <code>dplyr</code> for R and <code>pandas</code> for Python. We’ll take a closer look at the use of these packages in section 1.2.</p>
+<section id="r-who-are-you" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="r-who-are-you"><span class="header-section-number">1.1</span> R, who are you?</h2>
+<p>According to its <a href="https://en.wikipedia.org/wiki/R_(programming_language)">wikipedia page</a>:</p>
+<p><em>“R is a programming language for statistical computing and graphics supported by the R Core Team and the R Foundation for Statistical Computing. Created by statisticians Ross Ihaka and Robert Gentleman, R is used among data miners, bioinformaticians and statisticians for data analysis and developing statistical software. The core R language is augmented by a large number of extension packages containing reusable code and documentation.”</em></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Import and check Data</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Linear model</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false">Predictions</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">GDP</th>
+<th style="text-align: right;">Import</th>
+<th style="text-align: right;">Consumption</th>
+<th style="text-align: right;">Investment</th>
+<th style="text-align: right;">Export</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">293.367</td>
+<td style="text-align: right;">15.501</td>
+<td style="text-align: right;">236.822</td>
+<td style="text-align: right;">50.810</td>
+<td style="text-align: right;">18.107</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1951</td>
+<td style="text-align: right;">310.358</td>
+<td style="text-align: right;">18.428</td>
+<td style="text-align: right;">253.291</td>
+<td style="text-align: right;">55.680</td>
+<td style="text-align: right;">20.277</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1952</td>
+<td style="text-align: right;">320.022</td>
+<td style="text-align: right;">18.967</td>
+<td style="text-align: right;">265.817</td>
+<td style="text-align: right;">56.183</td>
+<td style="text-align: right;">19.624</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1953</td>
+<td style="text-align: right;">331.083</td>
+<td style="text-align: right;">18.963</td>
+<td style="text-align: right;">277.979</td>
+<td style="text-align: right;">58.772</td>
+<td style="text-align: right;">19.373</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1954</td>
+<td style="text-align: right;">349.552</td>
+<td style="text-align: right;">19.754</td>
+<td style="text-align: right;">286.413</td>
+<td style="text-align: right;">64.056</td>
+<td style="text-align: right;">20.979</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1955</td>
+<td style="text-align: right;">368.120</td>
+<td style="text-align: right;">21.061</td>
+<td style="text-align: right;">300.344</td>
+<td style="text-align: right;">70.856</td>
+<td style="text-align: right;">21.944</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1956</td>
+<td style="text-align: right;">386.481</td>
+<td style="text-align: right;">25.039</td>
+<td style="text-align: right;">321.230</td>
+<td style="text-align: right;">76.320</td>
+<td style="text-align: right;">21.601</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1957</td>
+<td style="text-align: right;">407.802</td>
+<td style="text-align: right;">27.200</td>
+<td style="text-align: right;">335.088</td>
+<td style="text-align: right;">83.797</td>
+<td style="text-align: right;">23.460</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1958</td>
+<td style="text-align: right;">418.795</td>
+<td style="text-align: right;">26.057</td>
+<td style="text-align: right;">335.104</td>
+<td style="text-align: right;">87.987</td>
+<td style="text-align: right;">23.943</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1959</td>
+<td style="text-align: right;">429.983</td>
+<td style="text-align: right;">26.127</td>
+<td style="text-align: right;">342.147</td>
+<td style="text-align: right;">92.001</td>
+<td style="text-align: right;">26.912</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>      year           GDP             Import        Consumption    
+ Min.   :1950   Min.   : 293.4   Min.   : 15.50   Min.   : 236.8  
+ 1st Qu.:1968   1st Qu.: 714.0   1st Qu.: 62.72   1st Qu.: 543.7  
+ Median :1986   Median :1283.1   Median :182.44   Median :1027.6  
+ Mean   :1986   Mean   :1317.4   Mean   :284.27   Mean   :1026.1  
+ 3rd Qu.:2004   3rd Qu.:1950.2   3rd Qu.:489.71   3rd Qu.:1491.0  
+ Max.   :2022   Max.   :2351.2   Max.   :828.61   Max.   :1837.7  
+   Investment         Export      
+ Min.   : 50.81   Min.   : 18.11  
+ 1st Qu.:180.73   1st Qu.: 55.71  
+ Median :269.77   Median :178.82  
+ Mean   :297.69   Mean   :277.40  
+ 3rd Qu.:438.56   3rd Qu.:501.56  
+ Max.   :575.35   Max.   :753.13  </code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div class="dygraphs html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0d8050dc489c7adebe97" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-0d8050dc489c7adebe97">{"x":{"attrs":{"labels":["year","GDP","Import","Consumption","Investment","Export"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60}}},"annotations":[],"shadings":[],"events":[],"format":"numeric","data":[[1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],[293.367,310.358,320.022,331.083,349.552,368.12,386.481,407.802,418.795,429.983,464.347,487.472,520.832,553.299,590.105,618.793,651.2910000000001,683.342,714.033,764.797,811.516,854.663,893.22,949.89,990.744,981.234,1023.984,1059.458,1101.609,1140.716,1158.725,1171.112,1200.453,1215.349,1233.746,1253.767,1283.071,1315.942,1378.359,1438.233,1480.286,1495.802,1519.725,1510.171,1545.787,1578.351,1600.653,1638.049,1696.833,1754.888,1823.744,1859.922,1881.042,1896.526,1950.193,1982.629,2031.19,2080.441,2085.745,2025.815,2065.307,2110.593,2117.202,2129.404,2149.765,2173.69,2197.502,2247.856,2289.78,2331.98,2156.138,2294.89,2351.224],[15.501,18.428,18.967,18.963,19.754,21.061,25.039,27.2,26.057,26.127,29.781,32.002,34.29,38.729,44.644,45.775,51.011,56.004,62.724,75.51300000000001,81.015,86.88800000000001,99.714,114.622,120.94,110.198,130.692,133.04,138.934,151.164,158.943,156.723,162.306,157.926,163.298,171.045,182.445,196.442,213.029,230.217,241.825,248.973,253.372,244.962,266.672,286.733,293.746,317.174,354.919,379.588,437.868,448.297,457.019,461.103,489.71,520.66,549.8200000000001,581.466,588.996,533.898,581.375,615.312,616.544,631.455,662.388,701.456,722,754.395,777.624,795.854,697.769,763.284,828.611],[236.822,253.291,265.817,277.979,286.413,300.344,321.23,335.088,335.104,342.147,357.184,377.771,404.962,432.138,456.317,474.771,496.876,521.471,543.703,578.169,605.6369999999999,640.506,672.26,711.535,734.9059999999999,755.937,794.361,815.903,853.203,882.096,897.314,917.327,950.0700000000001,962.703,973.047,994.091,1027.589,1059.851,1095.569,1124.898,1156.049,1172.748,1193.023,1204.614,1220.046,1234.828,1260.392,1268.985,1301.693,1339.491,1381.187,1409.967,1438.168,1461.432,1490.954,1521.854,1550.846,1587.993,1599.144,1613.872,1641.323,1653.616,1656.705,1670.009,1686.181,1708.669,1737.136,1762.184,1778.511,1805.886,1700.125,1795.291,1837.705],[50.81,55.68,56.183,58.772,64.056,70.85599999999999,76.31999999999999,83.797,87.98699999999999,92.001,98.20999999999999,109.628,116.891,126.809,139.819,147.8,159.061,171.098,180.734,194.788,205.123,219.235,232.363,248.478,254.521,242.016,247.395,245.747,252.627,260.163,268.143,265.568,263.202,255.232,253.096,258.936,269.771,283.682,308.327,331.036,346.293,344.443,339.321,320.869,325.86,330.192,332.674,335.298,356.79,384.766,410.342,419.677,415.827,423.806,438.555,451.271,467.722,493.608,497.819,452.668,462.089,471.636,472.727,468.919,469.073,473.877,486.482,509.587,526.424,547.711,510.58,563.211,575.354],[18.107,20.277,19.624,19.373,20.979,21.944,21.601,23.46,23.943,26.912,31.673,33.356,33.745,36.576,39.607,43.887,46.921,50.427,55.709,64.334,74.703,81.917,90.92,102.232,114.007,110.363,119.76,129.225,137.695,146.952,151.038,158.368,156.585,164.011,175.116,178.818,177.089,182.039,197.443,216.748,225.734,239.904,254.178,255.181,276.001,300.439,313.262,354.109,385.315,405.012,457.2,471.247,480.659,476.05,501.557,521.497,552.775,568.204,570.708,508.512,552.728,587.903,604.612,617.5549999999999,637.764,667.394,679.246,709.037,741.135,753.1319999999999,625.824,694.864,744.298]]},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(GDP <span class="sc">~</span> year, <span class="at">data =</span> PIB)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = GDP ~ year, data = PIB)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-208.19  -32.28   -0.80   29.75  116.39 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -59833.54     576.05  -103.9   &lt;2e-16 ***
+year            30.79       0.29   106.2   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 52.22 on 71 degrees of freedom
+Multiple R-squared:  0.9937,    Adjusted R-squared:  0.9937 
+F-statistic: 1.127e+04 on 1 and 71 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">year =</span> <span class="dv">2023</span><span class="sc">:</span><span class="dv">2030</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2        3        4        5        6        7        8 
+2456.703 2487.494 2518.286 2549.077 2579.868 2610.659 2641.450 2672.241 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<a onclick="fetch('data:text/csv;base64,eWVhcjtHRFA7SW1wb3J0O0NvbnN1bXB0aW9uO0ludmVzdG1lbnQ7RXhwb3J0CjE5NTA7MjkzLDM2NzsxNSw1MDE7MjM2LDgyMjs1MCw4MTA7MTgsMTA3CjE5NTE7MzEwLDM1ODsxOCw0Mjg7MjUzLDI5MTs1NSw2ODA7MjAsMjc3CjE5NTI7MzIwLDAyMjsxOCw5Njc7MjY1LDgxNzs1NiwxODM7MTksNjI0CjE5NTM7MzMxLDA4MzsxOCw5NjM7Mjc3LDk3OTs1OCw3NzI7MTksMzczCjE5NTQ7MzQ5LDU1MjsxOSw3NTQ7Mjg2LDQxMzs2NCwwNTY7MjAsOTc5CjE5NTU7MzY4LDEyMDsyMSwwNjE7MzAwLDM0NDs3MCw4NTY7MjEsOTQ0CjE5NTY7Mzg2LDQ4MTsyNSwwMzk7MzIxLDIzMDs3NiwzMjA7MjEsNjAxCjE5NTc7NDA3LDgwMjsyNywyMDA7MzM1LDA4ODs4Myw3OTc7MjMsNDYwCjE5NTg7NDE4LDc5NTsyNiwwNTc7MzM1LDEwNDs4Nyw5ODc7MjMsOTQzCjE5NTk7NDI5LDk4MzsyNiwxMjc7MzQyLDE0Nzs5MiwwMDE7MjYsOTEyCjE5NjA7NDY0LDM0NzsyOSw3ODE7MzU3LDE4NDs5OCwyMTA7MzEsNjczCjE5NjE7NDg3LDQ3MjszMiwwMDI7Mzc3LDc3MTsxMDksNjI4OzMzLDM1NgoxOTYyOzUyMCw4MzI7MzQsMjkwOzQwNCw5NjI7MTE2LDg5MTszMyw3NDUKMTk2Mzs1NTMsMjk5OzM4LDcyOTs0MzIsMTM4OzEyNiw4MDk7MzYsNTc2CjE5NjQ7NTkwLDEwNTs0NCw2NDQ7NDU2LDMxNzsxMzksODE5OzM5LDYwNwoxOTY1OzYxOCw3OTM7NDUsNzc1OzQ3NCw3NzE7MTQ3LDgwMDs0Myw4ODcKMTk2Njs2NTEsMjkxOzUxLDAxMTs0OTYsODc2OzE1OSwwNjE7NDYsOTIxCjE5Njc7NjgzLDM0Mjs1NiwwMDQ7NTIxLDQ3MTsxNzEsMDk4OzUwLDQyNwoxOTY4OzcxNCwwMzM7NjIsNzI0OzU0Myw3MDM7MTgwLDczNDs1NSw3MDkKMTk2OTs3NjQsNzk3Ozc1LDUxMzs1NzgsMTY5OzE5NCw3ODg7NjQsMzM0CjE5NzA7ODExLDUxNjs4MSwwMTU7NjA1LDYzNzsyMDUsMTIzOzc0LDcwMwoxOTcxOzg1NCw2NjM7ODYsODg4OzY0MCw1MDY7MjE5LDIzNTs4MSw5MTcKMTk3Mjs4OTMsMjIwOzk5LDcxNDs2NzIsMjYwOzIzMiwzNjM7OTAsOTIwCjE5NzM7OTQ5LDg5MDsxMTQsNjIyOzcxMSw1MzU7MjQ4LDQ3ODsxMDIsMjMyCjE5NzQ7OTkwLDc0NDsxMjAsOTQwOzczNCw5MDY7MjU0LDUyMTsxMTQsMDA3CjE5NzU7OTgxLDIzNDsxMTAsMTk4Ozc1NSw5Mzc7MjQyLDAxNjsxMTAsMzYzCjE5NzY7MTAyMyw5ODQ7MTMwLDY5Mjs3OTQsMzYxOzI0NywzOTU7MTE5LDc2MAoxOTc3OzEwNTksNDU4OzEzMywwNDA7ODE1LDkwMzsyNDUsNzQ3OzEyOSwyMjUKMTk3ODsxMTAxLDYwOTsxMzgsOTM0Ozg1MywyMDM7MjUyLDYyNzsxMzcsNjk1CjE5Nzk7MTE0MCw3MTY7MTUxLDE2NDs4ODIsMDk2OzI2MCwxNjM7MTQ2LDk1MgoxOTgwOzExNTgsNzI1OzE1OCw5NDM7ODk3LDMxNDsyNjgsMTQzOzE1MSwwMzgKMTk4MTsxMTcxLDExMjsxNTYsNzIzOzkxNywzMjc7MjY1LDU2ODsxNTgsMzY4CjE5ODI7MTIwMCw0NTM7MTYyLDMwNjs5NTAsMDcwOzI2MywyMDI7MTU2LDU4NQoxOTgzOzEyMTUsMzQ5OzE1Nyw5MjY7OTYyLDcwMzsyNTUsMjMyOzE2NCwwMTEKMTk4NDsxMjMzLDc0NjsxNjMsMjk4Ozk3MywwNDc7MjUzLDA5NjsxNzUsMTE2CjE5ODU7MTI1Myw3Njc7MTcxLDA0NTs5OTQsMDkxOzI1OCw5MzY7MTc4LDgxOAoxOTg2OzEyODMsMDcxOzE4Miw0NDU7MTAyNyw1ODk7MjY5LDc3MTsxNzcsMDg5CjE5ODc7MTMxNSw5NDI7MTk2LDQ0MjsxMDU5LDg1MTsyODMsNjgyOzE4MiwwMzkKMTk4ODsxMzc4LDM1OTsyMTMsMDI5OzEwOTUsNTY5OzMwOCwzMjc7MTk3LDQ0MwoxOTg5OzE0MzgsMjMzOzIzMCwyMTc7MTEyNCw4OTg7MzMxLDAzNjsyMTYsNzQ4CjE5OTA7MTQ4MCwyODY7MjQxLDgyNTsxMTU2LDA0OTszNDYsMjkzOzIyNSw3MzQKMTk5MTsxNDk1LDgwMjsyNDgsOTczOzExNzIsNzQ4OzM0NCw0NDM7MjM5LDkwNAoxOTkyOzE1MTksNzI1OzI1MywzNzI7MTE5MywwMjM7MzM5LDMyMTsyNTQsMTc4CjE5OTM7MTUxMCwxNzE7MjQ0LDk2MjsxMjA0LDYxNDszMjAsODY5OzI1NSwxODEKMTk5NDsxNTQ1LDc4NzsyNjYsNjcyOzEyMjAsMDQ2OzMyNSw4NjA7Mjc2LDAwMQoxOTk1OzE1NzgsMzUxOzI4Niw3MzM7MTIzNCw4Mjg7MzMwLDE5MjszMDAsNDM5CjE5OTY7MTYwMCw2NTM7MjkzLDc0NjsxMjYwLDM5MjszMzIsNjc0OzMxMywyNjIKMTk5NzsxNjM4LDA0OTszMTcsMTc0OzEyNjgsOTg1OzMzNSwyOTg7MzU0LDEwOQoxOTk4OzE2OTYsODMzOzM1NCw5MTk7MTMwMSw2OTM7MzU2LDc5MDszODUsMzE1CjE5OTk7MTc1NCw4ODg7Mzc5LDU4ODsxMzM5LDQ5MTszODQsNzY2OzQwNSwwMTIKMjAwMDsxODIzLDc0NDs0MzcsODY4OzEzODEsMTg3OzQxMCwzNDI7NDU3LDIwMAoyMDAxOzE4NTksOTIyOzQ0OCwyOTc7MTQwOSw5Njc7NDE5LDY3Nzs0NzEsMjQ3CjIwMDI7MTg4MSwwNDI7NDU3LDAxOTsxNDM4LDE2ODs0MTUsODI3OzQ4MCw2NTkKMjAwMzsxODk2LDUyNjs0NjEsMTAzOzE0NjEsNDMyOzQyMyw4MDY7NDc2LDA1MAoyMDA0OzE5NTAsMTkzOzQ4OSw3MTA7MTQ5MCw5NTQ7NDM4LDU1NTs1MDEsNTU3CjIwMDU7MTk4Miw2Mjk7NTIwLDY2MDsxNTIxLDg1NDs0NTEsMjcxOzUyMSw0OTcKMjAwNjsyMDMxLDE5MDs1NDksODIwOzE1NTAsODQ2OzQ2Nyw3MjI7NTUyLDc3NQoyMDA3OzIwODAsNDQxOzU4MSw0NjY7MTU4Nyw5OTM7NDkzLDYwODs1NjgsMjA0CjIwMDg7MjA4NSw3NDU7NTg4LDk5NjsxNTk5LDE0NDs0OTcsODE5OzU3MCw3MDgKMjAwOTsyMDI1LDgxNTs1MzMsODk4OzE2MTMsODcyOzQ1Miw2Njg7NTA4LDUxMgoyMDEwOzIwNjUsMzA3OzU4MSwzNzU7MTY0MSwzMjM7NDYyLDA4OTs1NTIsNzI4CjIwMTE7MjExMCw1OTM7NjE1LDMxMjsxNjUzLDYxNjs0NzEsNjM2OzU4Nyw5MDMKMjAxMjsyMTE3LDIwMjs2MTYsNTQ0OzE2NTYsNzA1OzQ3Miw3Mjc7NjA0LDYxMgoyMDEzOzIxMjksNDA0OzYzMSw0NTU7MTY3MCwwMDk7NDY4LDkxOTs2MTcsNTU1CjIwMTQ7MjE0OSw3NjU7NjYyLDM4ODsxNjg2LDE4MTs0NjksMDczOzYzNyw3NjQKMjAxNTsyMTczLDY5MDs3MDEsNDU2OzE3MDgsNjY5OzQ3Myw4Nzc7NjY3LDM5NAoyMDE2OzIxOTcsNTAyOzcyMiwwMDA7MTczNywxMzY7NDg2LDQ4Mjs2NzksMjQ2CjIwMTc7MjI0Nyw4NTY7NzU0LDM5NTsxNzYyLDE4NDs1MDksNTg3OzcwOSwwMzcKMjAxODsyMjg5LDc4MDs3NzcsNjI0OzE3NzgsNTExOzUyNiw0MjQ7NzQxLDEzNQoyMDE5OzIzMzEsOTgwOzc5NSw4NTQ7MTgwNSw4ODY7NTQ3LDcxMTs3NTMsMTMyCjIwMjA7MjE1NiwxMzg7Njk3LDc2OTsxNzAwLDEyNTs1MTAsNTgwOzYyNSw4MjQKMjAyMTsyMjk0LDg5MDs3NjMsMjg0OzE3OTUsMjkxOzU2MywyMTE7Njk0LDg2NAoyMDIyOzIzNTEsMjI0OzgyOCw2MTE7MTgzNyw3MDU7NTc1LDM1NDs3NDQsMjk4Cg==').then(res => res.blob()).then(blob => {
+      const downloadURL = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = downloadURL;
+      a.download = 'population.csv'; a.click();
+      window.URL.revokeObjectURL(downloadURL);
+      document.body.removeChild(a);
+    });">
+<button class="btn btn-default" has_icon="TRUE"><i class="fa fa-save"></i> Download data as csv</button>
+</a>
+</div>
+</div>
+<section id="r-studio" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="r-studio"><span class="header-section-number">1.1.1</span> R studio</h3>
+<p>RStudio is an integrated development environment (IDE) for the R programming language. It provides a graphical user interface (GUI) for writing, editing, and running R code. It also includes a number of features that make it easier to work with data, such as a code editor, a debugger, and a console. RStudio is a popular IDE for R, and it is used by a wide range of users, from students to researchers to data scientists.</p>
+<p>Here are some of the key features of RStudio:</p>
+<ul>
+<li>A code editor with syntax highlighting and auto-completion</li>
+<li>A debugger that allows you to step through your code line-by-line</li>
+<li>A console where you can run R commands</li>
+<li>A variety of tools for working with data, such as a data viewer and a data frame editor</li>
+<li>A built-in help system</li>
+</ul>
+<p>RStudio is a powerful tool that can help you be more productive when working with R. If you are new to R, we highly recommend using RStudio. It will make your learning experience much easier.</p>
+<p>Here are some additional details about RStudio:</p>
+<ul>
+<li>It is available for Windows, macOS, and Linux.</li>
+<li>It is free to use for personal use.</li>
+<li>There is a paid version of RStudio that includes additional features, such as a cloud-based IDE and a subscription to the RStudio Pro services.</li>
+</ul>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Rstudio.PNG" class="img-fluid figure-img" width="800"></p>
+<figcaption class="figure-caption">Rstudio</figcaption>
+</figure>
+</div>
+</center>
+<p>The functions of these different sections are as follows:</p>
+<ul>
+<li><p>A: <strong>Source file editing window</strong>. Here you can edit your script file, select parts and execute them with <code>Ctrl-Enter</code> (Cmd-??? on Mac). Data table tabs are also displayed here.</p></li>
+<li><p>B: <strong>Environment window</strong>. This displays the list of objects you have created. These objects can be simple variables, tables, functions, graphical objects, etc.</p></li>
+<li><p>C: <strong>Console</strong>. Here you can write command lines directly. Press <code>Enter</code> to execute a line you’ve just written. This is also where any error messages are displayed.</p></li>
+<li><p>D: <strong>Multi-tabbed window</strong>. Files is used to navigate through your computer’s file system, Plots displays graphics, Packages displays available and loaded packages (when checked). Help provides help on functions.</p></li>
+</ul>
+</section>
+<section id="packages" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="packages"><span class="header-section-number">1.1.2</span> Packages</h3>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/packages.jpeg" class="img-fluid figure-img" width="600"></p>
+<figcaption class="figure-caption">The R packages galaxy</figcaption>
+</figure>
+</div>
+</center>
+<p>A <strong>package</strong> in R is a collection of R code, data, and documentation that can be installed and used as a single unit. Packages are a great way to share code with others, and they can be used to extend the functionality of R.</p>
+<p>R packages are stored in the R Package Archive (<a href="https://cran.r-project.org/">CRAN</a>), which is a central repository of R packages. Packages can be installed from <a href="https://cran.r-project.org/">CRAN</a> using the <code>install.packages()</code> command.</p>
+<p>Once a package has been installed, it can be loaded into the R environment using the <code>library()</code> command. Once a package has been loaded, its functions and data can be accessed.</p>
+<p>R packages are a powerful tool that can be used to improve the productivity and efficiency of statistical analyses.</p>
+<ul>
+<li><p><strong>dplyr</strong>: This package is used for data manipulation. It provides a consistent and intuitive way to filter, select, mutate, and summarize data frames.</p></li>
+<li><p><strong>tidyr</strong>: This package is used for tidying data. It provides a set of functions to help you transform your data into a format that is easy to work with.</p></li>
+<li><p><strong>ggplot2</strong>: This package is used for creating beautiful and informative graphics.</p></li>
+<li><p><strong>readr</strong>: This package is used for reading data into R. It provides a consistent and efficient way to read data from a variety of file formats.</p></li>
+<li><p><strong>stringr</strong>: This package is used for working with strings. It provides a set of functions to help you manipulate, search, and parse strings.</p></li>
+<li><p><strong>lubridate</strong>: This package is used for working with dates and times. It provides a set of functions to help you parse, manipulate, and format dates and times.</p></li>
+<li><p><strong>purrr</strong>: This package is used for functional programming. It provides a set of functions that make it easy to write concise and elegant code.</p></li>
+<li><p><strong>forcats</strong>: This package is used for working with factors. It provides a set of functions to help you manipulate, summarize, and visualize factors.</p></li>
+</ul>
+<p>These are just a few of the many R packages that are available. There are packages for almost everything you can think of, from machine learning to statistical modeling to visualization.</p>
+</section>
+<section id="an-object-oriented-programming-language" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="an-object-oriented-programming-language"><span class="header-section-number">1.1.3</span> An object-oriented programming language</h3>
+<p>As Python, R is <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">an object-oriented programming language</a>, that is to say a programming paradigm based on the concept of <em>objects</em>, which can contain data and code. <em>Objects</em> in R can be <strong>vectors</strong>, <strong>matrices</strong>, <strong>arrays</strong>, <strong>data frames</strong>, <strong>tables</strong> and <strong>list</strong>.</p>
+<p>Every time you see this symbol <code>&lt;-</code>, it means that R is creating an object that it will keep in memory. So, if I do this <code>A &lt;- 6</code>, <code>A</code> will have become an object, and logically <code>sqrt(A)</code> will be equal to <span class="math inline">\(\sqrt{6}\)</span>.</p>
+</section>
+<section id="some-references" class="level3" data-number="1.1.4">
+<h3 data-number="1.1.4" class="anchored" data-anchor-id="some-references"><span class="header-section-number">1.1.4</span> <strong>Some references</strong></h3>
+<ul>
+<li><p><a href="https://www.statmethods.net/r-tutorial/index.html">R Tutorial</a>: Excellent for beginners. All the software’s basic functions are covered very simply.</p></li>
+<li><p><a href="https://r4ds.had.co.nz/index.html">R for Data Science</a>: Perhaps the best-known reference for all data scientists working with R. Very comprehensive!</p></li>
+<li><p><a href="https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html">Visualization with ggplot2</a>: A very good summary of the DataViz techniques possible with the <code>ggplot2 package</code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="how-this-tutorial-works" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="how-this-tutorial-works"><span class="header-section-number">1.2</span> How this tutorial works?</h2>
+<p>Very simply! You just have to copy/paste and… run the code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="fl">+1.5</span>)  <span class="co"># = 35         # calculus</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">**</span><span class="dv">2</span>         <span class="co"># = 100        # square</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">^</span><span class="dv">2</span>          <span class="co"># idem</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">**</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)    <span class="co"># = 10         # power</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span><span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)     <span class="co"># idem</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should have this:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 35</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>What we see here is the basic calculation made with R. Note that the <code>#</code> symbol allows you to add comments to the code without them being executed by the program.</p>
+<p>In addition to basic calculation, R has all the usual predefined functions in stock:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">100</span>)     <span class="co"># root  </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>pi            <span class="co"># pi  </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cos</span>(pi)       <span class="co"># cos</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(pi<span class="sc">/</span><span class="dv">2</span>)     <span class="co"># sin</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">1</span>)        <span class="co"># exponential</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">1</span>)        <span class="co"># log </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.141593</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.718282</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>But also functions: here, the <code>round()</code> function, which rounds a number to the desired number of decimal places (You can see the complete list of functions <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/00Index.html">here</a>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">2.566</span>)     <span class="co"># round</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pi,<span class="dv">0</span>)      <span class="co"># idem </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(pi,<span class="dv">2</span>)      <span class="co"># with 2 decimals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.14</code></pre>
+</div>
+</div>
+<p>Think you’ve got it? Let’s find out. Try to calculate the following formula, in principle you should find -0.02 to two decimal places.</p>
+<p><span class="math display">\[  \frac{sin(\sqrt \pi )+cos^2(5)}{3-e^4}   \]</span></p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+See solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sin</span>(<span class="fu">sqrt</span>(pi))<span class="sc">+</span>(<span class="fu">cos</span>(<span class="dv">5</span>))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">-</span><span class="fu">exp</span>(<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.02054725</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="learning-by-doing" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="learning-by-doing"><span class="header-section-number">1.3</span> Learning by doing</h2>
+<p>The time has come to get down to business. In this game, you’re the hero. You’ll have to execute every line of the following code and figure out for yourself what’s going on… Go to work!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(a)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>)  <span class="co">#  vector</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>v</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(v)         <span class="co"># lenght vector</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(a)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">is.vector</span>(a)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>v<span class="sc">+</span><span class="dv">1</span>             <span class="co"># on any composant of vector</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>v<span class="sc">**</span><span class="dv">2</span>              <span class="co"># </span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(v)            <span class="co"># </span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)     <span class="co"># </span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>v<span class="sc">-</span>w               <span class="co"># </span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>v<span class="sc">*</span>w               <span class="co"># </span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>v<span class="sc">/</span>w               <span class="co">#  </span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>v<span class="sc">%*%</span>w             <span class="co"># </span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(v)         <span class="co"># = 60  </span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(v)        <span class="co"># = 20  </span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(v)         <span class="co"># = 10  </span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(v)         <span class="co"># = 30   </span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(v)          <span class="co"># = 10  </span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(v)      <span class="co"># = 20  </span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>) <span class="co"># </span></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>u[<span class="dv">2</span>]                    <span class="co"># </span></span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>u[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]                  <span class="co"># </span></span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>u[<span class="dv">8</span>] <span class="ot">&lt;-</span> <span class="dv">80</span>              <span class="co"># </span></span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>u</span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>u[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="dv">1</span>             <span class="co">#            </span></span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a>u</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercices" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="exercices"><span class="header-section-number">1.4</span> Exercices</h2>
+<div class="webex-check webex-box">
+<p>How do you load the <code>tidyverse</code> package? <input class="webex-solveme nospaces" size="20" data-answer="[&quot;library( tidyverse )&quot;,&quot;library( \&quot;tidyverse\&quot; )&quot;,&quot;library( 'tidyverse' )&quot;]"></p>
+<p>What package helps you load CSV files? <select class="webex-select"><option value="blank"></option><option value="">tidyr</option><option value="">dplyr</option><option value="answer">readr</option><option value="">ggplot2</option></select></p>
+<p>Which package to create beautiful graphics? <select class="webex-select"><option value="blank"></option><option value="">tidyr</option><option value="">dplyr</option><option value="answer">ggplot2</option><option value="">shiny</option></select></p>
+<p>How do I create an “empty vector” object named “Empty_Vect”? <input class="webex-solveme nospaces ignorecase" size="17" data-answer="[&quot;Empty_Vect <- c()&quot;]"></p>
+<p>This course is very cool <select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select></p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  var t = document.getElementsByClassName("webex-total_correct");
+  for (var i = 0; i < t.length; i++) {
+    p = t[i].parentElement;
+    var correct = p.getElementsByClassName("webex-correct").length;
+    var solvemes = p.getElementsByClassName("webex-solveme").length;
+    var radiogroups = p.getElementsByClassName("webex-radiogroup").length;
+    var selects = p.getElementsByClassName("webex-select").length;
+
+    t[i].innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* check answers */
+check_func = function() {
+  console.log("webex: check answers");
+
+  var cl = this.parentElement.classList;
+  if (cl.contains('unchecked')) {
+    cl.remove("unchecked");
+    this.innerHTML = "Hide Answers";
+  } else {
+    cl.add("unchecked");
+    this.innerHTML = "Show Answers";
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+
+  var cl = this.classList
+
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("webex onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  var check_sections = document.getElementsByClassName("webex-check");
+  console.log("check:", check_sections.length);
+  for (var i = 0; i < check_sections.length; i++) {
+    check_sections[i].classList.add("unchecked");
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "Show Answers";
+    btn.classList.add("webex-check-button");
+    btn.onclick = check_func;
+    check_sections[i].appendChild(btn);
+
+    let spn = document.createElement("span");
+    spn.classList.add("webex-total_correct");
+    check_sections[i].appendChild(spn);
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+
+    solveme[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+    selects[i].insertAdjacentHTML("afterend", " <span class='webex-icon'></span>")
+  }
+
+  update_total_correct();
+}
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Example</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
